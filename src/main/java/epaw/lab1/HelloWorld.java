@@ -6,7 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;6
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,6 +49,14 @@ public class HelloWorld extends HttpServlet {
         }
 
         out.println("</table>");
+        out.println("<h2> Add a new user </h2>");
+        out.println("<form action=\"/hello\" ");
+        out.println("<label for=\"name\">Name:</label><br>");
+        out.println("<input type=\"text\" id=\"name\" name=\"name\"><br>");
+        out.println("<label for=\"description\">Description:</label><br>");
+        out.println("<input type=\"text\" id=\"description\" name=\"description\"><br><br>");
+        out.println("<input type=\"submit\"value=\"Add User\">");
+        out.println("</form>");
         out.println("</body>");
         out.println("</html>");
     }
