@@ -46,3 +46,7 @@ EXTERNAL_RESOURCES/images/*
 
 # Jasper JSP Compiler Output
 jsp/
+
+# Build artifacts and dependencies
+*.so
+NOTICE
