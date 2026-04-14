@@ -1,11 +1,18 @@
 {
-    "java.autobuild.enabled": true,
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.nullAnalysis.mode": "automatic",
-    "java.import.maven.offline.enabled": false,
-    "java.project.importOnFirstTimeStartup": "automatic",
-    "files.exclude": {
-        "jsp/": true,
-        "target/": true
+  "java.autobuild.enabled": true,
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.import.maven.offline.enabled": false,
+  "java.project.importOnFirstTimeStartup": "automatic",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/usr/lib/jvm/java-21-openjdk-amd64",
+      "default": true
     }
+  ],
+  "files.exclude": {
+    "jsp/": true,
+    "target/": true
+  }
 }
