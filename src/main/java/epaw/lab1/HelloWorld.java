@@ -17,6 +17,7 @@ public class HelloWorld extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
@@ -64,6 +65,38 @@ public class HelloWorld extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        
+        // Leer parámetros del formulario
+
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        
+        // Validar y guardar si los datos son válidos
+
+        System.out.println("doPost called with name: " + name + ", description: " + description);  // Debug
+        
+        if (name != null && !name.trim().isEmpty() && description != null && !description.trim().isEmpty()) {
+            try (DBManager db = new DBManager()) {
+                String sql = "INSERT INTO users (name, description) VALUES (?, ?)";
+                PreparedStatement stmt = db.prepareStatement(sql);
+                stmt.setString(1, name);
+                stmt.setString(2, description);
+                int rows = stmt.executeUpdate();  // Guarda en DB
+                System.out.println("Inserted " + rows + " rows");  // Debug
+
+            } catch (Exception e) {
+                e.printStackTrace();  // Muestra errores en consola
+            }
+
+        } else {
+            
+            System.out.println("Validation failed: name or description empty");  // Debug
+        }
+        
+        // Redirigir a doGet para mostrar la lista actualizada
+
+        response.sendRedirect(request.getContextPath() + "/hello");
+
     }
+
 }
