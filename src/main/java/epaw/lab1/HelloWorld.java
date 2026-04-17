@@ -50,12 +50,12 @@ public class HelloWorld extends HttpServlet {
 
         out.println("</table>");
         out.println("<h2> Add a new user </h2>");
-        out.println("<form action=\"/hello\" ");
+        out.println("<form action=\"/hello\" method=\"post\">");
         out.println("<label for=\"name\">Name:</label><br>");
         out.println("<input type=\"text\" id=\"name\" name=\"name\"><br>");
         out.println("<label for=\"description\">Description:</label><br>");
         out.println("<input type=\"text\" id=\"description\" name=\"description\"><br><br>");
-        out.println("<input type=\"submit\"value=\"Add User\">");
+        out.println("<input type=\"submit\" value=\"Add User\">");
         out.println("</form>");
         out.println("</body>");
         out.println("</html>");
@@ -64,6 +64,21 @@ public class HelloWorld extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+
+        if (name != null && description != null && !name.isBlank() && !description.isBlank()) {
+            try (DBManager db = new DBManager()) {
+                PreparedStatement stmt = db.prepareStatement(
+                        "INSERT INTO users (name, description) VALUES (?, ?)");
+                stmt.setString(1, name.trim());
+                stmt.setString(2, description.trim());
+                stmt.executeUpdate();
+            } catch (Exception e) {
+                throw new ServletException("Failed to save user", e);
+            }
+        }
+
+        response.sendRedirect(request.getContextPath() + "/hello");
     }
 }
