@@ -51,12 +51,12 @@ public class HelloWorld extends HttpServlet {
 
         out.println("</table>");
         out.println("<h2> Add a new user </h2>");
-        out.println("<form action=\"/hello\" ");
+        out.println("<form action=\"/hello\" method=\"post\">");
         out.println("<label for=\"name\">Name:</label><br>");
         out.println("<input type=\"text\" id=\"name\" name=\"name\"><br>");
         out.println("<label for=\"description\">Description:</label><br>");
         out.println("<input type=\"text\" id=\"description\" name=\"description\"><br><br>");
-        out.println("<input type=\"submit\"value=\"Add User\">");
+        out.println("<input type=\"submit\" value=\"Add User\">");
         out.println("</form>");
         out.println("</body>");
         out.println("</html>");
@@ -65,38 +65,22 @@ public class HelloWorld extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        // Leer parámetros del formulario
-
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        
-        // Validar y guardar si los datos son válidos
 
-        System.out.println("doPost called with name: " + name + ", description: " + description);  // Debug
-        
-        if (name != null && !name.trim().isEmpty() && description != null && !description.trim().isEmpty()) {
+        if (name != null && description != null && !name.isBlank() && !description.isBlank()) {
             try (DBManager db = new DBManager()) {
-                String sql = "INSERT INTO users (name, description) VALUES (?, ?)";
-                PreparedStatement stmt = db.prepareStatement(sql);
-                stmt.setString(1, name);
-                stmt.setString(2, description);
-                int rows = stmt.executeUpdate();  // Guarda en DB
-                System.out.println("Inserted " + rows + " rows");  // Debug
-
+                PreparedStatement stmt = db.prepareStatement(
+                        "INSERT INTO users (name, description) VALUES (?, ?)");
+                stmt.setString(1, name.trim());
+                stmt.setString(2, description.trim());
+                stmt.executeUpdate();
             } catch (Exception e) {
-                e.printStackTrace();  // Muestra errores en consola
+                throw new ServletException("Failed to save user", e);
             }
-
-        } else {
-            
-            System.out.println("Validation failed: name or description empty");  // Debug
         }
-        
-        // Redirigir a doGet para mostrar la lista actualizada
 
         response.sendRedirect(request.getContextPath() + "/hello");
-
     }
 
 }
