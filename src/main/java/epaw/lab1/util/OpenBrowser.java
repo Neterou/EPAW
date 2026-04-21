@@ -44,6 +44,7 @@ public class OpenBrowser {
     }
 
     private static String resolveUrl(String filePath) {
+        filePath = convertWindowsPath(filePath);
         Path path = Paths.get(filePath).toAbsolutePath().normalize();
         String normalizedPath = path.toString().replace('\\', '/');
         String lowerPath = normalizedPath.toLowerCase();
@@ -95,6 +96,19 @@ public class OpenBrowser {
         }
 
         return null;
+    }
+
+    private static String convertWindowsPath(String filePath) {
+        // Accept Windows paths like C:\Users\... or C:/Users/...
+        if (filePath.length() >= 2 && Character.isLetter(filePath.charAt(0)) && filePath.charAt(1) == ':') {
+            String drive = String.valueOf(Character.toLowerCase(filePath.charAt(0)));
+            String rest = filePath.substring(2).replace('\\', '/');
+            if (rest.startsWith("/")) {
+                rest = rest.substring(1);
+            }
+            return "/mnt/" + drive + "/" + rest;
+        }
+        return filePath;
     }
 
     private static void openInBrowser(String url) {
