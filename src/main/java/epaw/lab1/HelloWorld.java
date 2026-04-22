@@ -17,12 +17,16 @@ public class HelloWorld extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
         out.println("<!DOCTYPE html>");
         out.println("<html>");
-        out.println("<head><title>Users List</title></head>");
+        out.println("<head>");
+        out.println("<title>Users List</title>");
+        out.println("<link rel=\"stylesheet\" href=\"/styles.css\">");
+        out.println("</head>");
         out.println("<body>");
         out.println("<h1>Users from Database</h1>");
         out.println("<table border='1'>");
@@ -61,7 +65,8 @@ public class HelloWorld extends HttpServlet {
         out.println("</html>");
     }
 
-    @Override
+    @Override 
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String name = request.getParameter("name");
@@ -81,4 +86,5 @@ public class HelloWorld extends HttpServlet {
 
         response.sendRedirect(request.getContextPath() + "/hello");
     }
+
 }
