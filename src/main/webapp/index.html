@@ -1,14 +1,137 @@
 <!DOCTYPE html>
 <html lang="ca">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>BubbleNet - Registre</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <h1>Welcome to EPAW!</h1>
-</body>
 
+<main class="page">
+    <section class="card">
+        <h1>Registre a BubbleNet</h1>
+        <p class="subtitle">
+            Crea el teu compte per unir-te a les bubbles de la teva zona.
+        </p>
+
+        <div id="clientMessage" class="message hidden"></div>
+
+        <form id="registerForm" action="register" method="post" novalidate>
+
+            <!-- ROW 1: Nombre -->
+            <div class="form-row">
+                <label for="name">Nom *</label>
+                <input type="text" id="name" name="name" placeholder="Introdueix el teu nom" required>
+                <small id="nameError"></small>
+            </div>
+
+            <!-- ROW 2: Apellidos -->
+            <div class="form-row">
+                <label for="surname">Cognoms *</label>
+                <input type="text" id="surname" name="surname" placeholder="Introdueix els teus cognoms" required>
+                <small id="surnameError"></small>
+            </div>
+
+            <!-- ROW 3: Fecha de nacimiento -->
+            <div class="form-row">
+                <label for="birthDate">Data de naixement *</label>
+                <input type="date" id="birthDate" name="birthDate" required>
+                <small id="birthDateError"></small>
+            </div>
+
+            <!-- ROW 4: Email -->
+            <div class="form-row">
+                <label for="email">Correu electrònic *</label>
+                <input type="email" id="email" name="email" placeholder="exemple@correu.com" required>
+                <small id="emailError"></small>
+            </div>
+
+            <!-- ROW 5: Username -->
+            <div class="form-row">
+                <label for="username">Nom d'usuari *</label>
+                <input type="text" id="username" name="username" placeholder="Introdueix el teu nom d'usuari" required>
+                <small id="usernameError"></small>
+            </div>
+
+            <!-- ROW 6: DNI -->
+            <div class="form-row">
+                <label for="dni">DNI *</label>
+                <input type="text" id="dni" name="dni" placeholder="12345678A" required>
+                <small id="dniError"></small>
+            </div>
+
+            <!-- ROW 7: País -->
+            <div class="form-row">
+                <label for="country">País *</label>
+                <select id="country" name="country" required>
+                    <option value="">Selecciona un país</option>
+                    <option value="ES">Espanya</option>
+                    <option value="FR">França</option>
+                    <option value="IT">Itàlia</option>
+                    <option value="DE">Alemanya</option>
+                    <option value="PT">Portugal</option>
+                    <option value="AT">Àustria</option>
+                    <option value="BE">Bèlgica</option>
+                    <option value="CH">Suïssa</option>
+                    <option value="NL">Holanda</option>
+                    <option value="SE">Suècia</option>
+                </select>
+                <small id="countryError"></small>
+            </div>
+
+            <!-- ROW 8: Ciudad -->
+            <div class="form-row">
+                <label for="city">Ciutat *</label>
+                <input type="text" id="city" name="city" placeholder="Introdueix la teva ciutat" required>
+                <small id="cityError"></small>
+            </div>
+
+            <!-- ROW 9: Código postal -->
+            <div class="form-row">
+                <label for="zip">Codi postal *</label>
+                <input type="text" id="zip" name="zip" placeholder="08001" required>
+                <small id="zipError"></small>
+            </div>
+
+            <!-- ROW 10: Teléfono (opcional) -->
+            <div class="form-row">
+                <label for="phone">Telèfon</label>
+                <input type="tel" id="phone" name="phone" placeholder="Opcional">
+                <small id="phoneError"></small>
+            </div>
+
+            <!-- ROW 11: Género (opcional) -->
+            <div class="form-row">
+                <label for="gender">Gènere</label>
+                <select id="gender" name="gender">
+                    <option value="">Prefereixo no dir-ho</option>
+                    <option value="male">Home</option>
+                    <option value="female">Dona</option>
+                    <option value="non_binary">No binari</option>
+                    <option value="not_say">Prefereixo no dir-ho</option>
+                </select>
+            </div>
+
+            <!-- ROW 12: Contraseña -->
+            <div class="form-row">
+                <label for="password">Contrasenya *</label>
+                <input type="password" id="password" name="password" placeholder="Mínimo 8 caràcters" required>
+                <small id="passwordError"></small>
+            </div>
+
+            <!-- ROW 13: Confirmar contraseña -->
+            <div class="form-row">
+                <label for="passwordCheck">Repeteix la contrasenya *</label>
+                <input type="password" id="passwordCheck" name="passwordCheck" placeholder="Confirma la teva contrasenya" required>
+                <small id="passwordCheckError"></small>
+            </div>
+
+            <button type="submit">Registrar-me</button>
+        </form>
+    </section>
+</main>
+
+<script src="register.js"></script>
+</body>
 </html>
